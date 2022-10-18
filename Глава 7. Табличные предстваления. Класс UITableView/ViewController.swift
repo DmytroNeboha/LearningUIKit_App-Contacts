@@ -51,5 +51,22 @@ extension ViewController: UITableViewDataSource {
         configuration.secondaryText = contacts[indexPath.row].phone
         cell.contentConfiguration = configuration
     }
+}
+
+
+extension ViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        print("Определяем доступные действия для строки \(indexPath.row)")
+        // действие удаление
+        let actionDelete = UIContextualAction(style: .destructive, title: "Удалить") {_,_,_ in
+            // удаляем контент
+            self.contacts.remove(at: indexPath.row)
+            // заново формируем табличное предстваление
+            tableView.reloadData()
+        }
+        // формируем экземпляр, описывающий достыпные действия
+        let actions = UISwipeActionsConfiguration(actions: [actionDelete])
+        return actions
+    }
 }
