@@ -7,21 +7,69 @@
 
 import UIKit
 
-class ViewController: UIViewController { // - можно и тут было подписать на UITableViewDataSource
-    private var contacts = [ContactProtocol]()
+class ViewController: UIViewController {
+
+    @IBOutlet var tableView: UITableView!
+
+    private var contacts = [ContactProtocol]() {
+        didSet {
+            contacts.sort { $0.title < $1.title }
+        }
+    }
     
     private func loadContacts() {
         contacts.append(Contact(title: "Alex Photographer", phone: "+380973452331"))
         contacts.append(Contact(title: "Dmytro Developer", phone: "+380973450967"))
         contacts.append(Contact(title: "Maks Videographer", phone: "+380973452125"))
-        contacts.sort { $0.title < $1.title }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadContacts()
     }
+    
+    @IBAction func showNewContactAlert() {
+        // создание Alert Contoller
+        let alertController = UIAlertController(title: "Создайте новый контакт", message: "Введите имя и телефон", preferredStyle: .alert)
+        
+        // добавляем первое текстовое поле в AlertController
+        alertController.addTextField { textField in
+            textField.placeholder = "Имя"
+        }
+        
+        // добавляем второе текстовое поле в AlertController
+        alertController.addTextField { textField in
+            textField.placeholder = "Номер телефона"
+        }
+        
+        // создаем кнопки. Кнопка создания контакта
+        let createButton = UIAlertAction(title: "Создать", style: .default) {
+            _ in
+            guard let contactName = alertController.textFields?[0].text,
+                  let contactPhone = alertController.textFields?[1].text else {
+                return
+            }
+            
+            // создаём новый контакт
+            let contact = Contact(title: contactName, phone: contactPhone)
+            self.contacts.append(contact)
+            self.tableView.reloadData()
+        }
+        
+        // кнопка отмены
+        let cancelButon = UIAlertAction(title: "Отменить", style: .cancel, handler: nil)
+        
+        // добавляем кнопки в Alert Controller
+        alertController.addAction(cancelButon)
+        alertController.addAction(createButton)
+
+        
+        // отображаем Alert Controller
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
+
+
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,7 +91,7 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
     
-    private func configure(cell: inout UITableViewCell, for indexPath: IndexPath) {
+        private func configure(cell: inout UITableViewCell, for indexPath: IndexPath) {
         var configuration = cell.defaultContentConfiguration()
         // contact name
         configuration.text = contacts[indexPath.row].title
@@ -52,6 +100,7 @@ extension ViewController: UITableViewDataSource {
         cell.contentConfiguration = configuration
     }
 }
+
 
 
 extension ViewController: UITableViewDelegate {
