@@ -66,16 +66,40 @@
 		55AD4E7228F4882D007149EE /* Глава 7. Табличные предстваления. Класс UITableView */ = {
 			isa = PBXGroup;
 			children = (
-				555BE29528FA07FC00BA47F7 /* Model */,
 				55AD4E7328F4882D007149EE /* AppDelegate.swift */,
 				55AD4E7528F4882D007149EE /* SceneDelegate.swift */,
-				55AD4E7728F4882D007149EE /* ViewController.swift */,
-				55AD4E7928F4882D007149EE /* Main.storyboard */,
-				55AD4E7C28F48831007149EE /* Assets.xcassets */,
-				55AD4E7E28F48831007149EE /* LaunchScreen.storyboard */,
 				55AD4E8128F48831007149EE /* Info.plist */,
+				555BE29528FA07FC00BA47F7 /* Model */,
+				55C39B7128FF513200A7906B /* View */,
+				55C39B7228FF517700A7906B /* Controller */,
+				55C39B7328FF51FE00A7906B /* Resources */,
 			);
 			path = "Глава 7. Табличные предстваления. Класс UITableView";
+			sourceTree = "<group>";
+		};
+		55C39B7128FF513200A7906B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				55AD4E7928F4882D007149EE /* Main.storyboard */,
+				55AD4E7E28F48831007149EE /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		55C39B7228FF517700A7906B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				55AD4E7728F4882D007149EE /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		55C39B7328FF51FE00A7906B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				55AD4E7C28F48831007149EE /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

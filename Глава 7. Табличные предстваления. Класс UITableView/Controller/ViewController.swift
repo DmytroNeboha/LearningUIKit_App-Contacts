@@ -8,23 +8,29 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+//    var userDefaults = UserDefaults.standard
+    var storage: ContactStorageProtocol!
+    
     @IBOutlet var tableView: UITableView!
 
     private var contacts = [ContactProtocol]() {
         didSet {
             contacts.sort { $0.title < $1.title }
+            // сохранение контактов в хранилище
+            storage.save(contacts: contacts)
         }
     }
     
     private func loadContacts() {
-        contacts.append(Contact(title: "Alex Photographer", phone: "+380973452331"))
-        contacts.append(Contact(title: "Dmytro Developer", phone: "+380973450967"))
-        contacts.append(Contact(title: "Maks Videographer", phone: "+380973452125"))
+        contacts = storage.load()
     }
     
     override func viewDidLoad() {
+//        userDefaults.set("Some random text", forKey: "Some key")
+//        print( userDefaults.object(forKey: "Some key") as Any)
+//        print( userDefaults.string(forKey: "Some key") as Any)
         super.viewDidLoad()
+        storage = ContactStorage()
         loadContacts()
     }
     
